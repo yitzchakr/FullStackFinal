@@ -1,17 +1,15 @@
 .landingContainer {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4; 
+  background-color: #f4f4f4;
   padding: 2rem;
 }
 
 .landingHeader {
   text-align: center;
-  background-color: #173656; 
+  background-color: #173656;
   padding: 2rem 1rem;
   border-radius: 8px;
   margin-bottom: 2rem;
-  
- 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -20,29 +18,29 @@
   margin: 0;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  color: #ecf0f1; /* Light gray for contrast */
+  color: #ecf0f1;
 }
 
 .landingSubhead {
   font-size: 1.2rem;
   margin-top: 0.5rem;
-  color: #bdc3c7; /* Subtle gray for subheading */
+  color: #bdc3c7;
 }
 
 .landingNav {
-  background-color: #173656; /* Coordinated dark gray-blue */
+  background-color: #173656;
   padding: 1rem 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .landingNavList {
-  list-style: none; /* Removes bullets */
+  list-style: none;
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Centers the nav items */
+  justify-content: center;
   align-items: center;
-  gap: 2rem; /* Adds spacing between items */
+  gap: 2rem;
   margin: 0;
   padding: 0;
 }
@@ -57,5 +55,10 @@
 }
 
 .landingNavItem:hover {
-  color: #1abc9c; /* Changes color on hover */
+  color: #1abc9c;
+}
+
+.activeNavItem {
+  color: #1abc9c; /* Highlight active link */
+  font-weight: bold; /* Make active link bold */
 }

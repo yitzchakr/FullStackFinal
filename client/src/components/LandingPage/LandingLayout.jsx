@@ -1,6 +1,6 @@
 import React from 'react'
-import styles from'../../styles/landing.module.css'
-import { Outlet } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
+import styles from '../../styles/landing.module.css'
 
 const LandingLayout = () => {
   return (
@@ -11,13 +11,49 @@ const LandingLayout = () => {
       </header>
       <nav className={styles.landingNav}>
         <ul className={styles.landingNavList}>
-          <li className={styles.landingNavItem}>Home</li>
-          <li className={styles.landingNavItem}>About</li>
-          <li className={styles.landingNavItem}>Contact</li>
-          <li className={styles.landingNavItem}>Login</li>
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? `${styles.landingNavItem} ${styles.activeNavItem}` : styles.landingNavItem
+              }
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive ? `${styles.landingNavItem} ${styles.activeNavItem}` : styles.landingNavItem
+              }
+            >
+              About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                isActive ? `${styles.landingNavItem} ${styles.activeNavItem}` : styles.landingNavItem
+              }
+            >
+              Contact
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? `${styles.landingNavItem} ${styles.activeNavItem}` : styles.landingNavItem
+              }
+            >
+              Login
+            </NavLink>
+          </li>
         </ul>
       </nav>
-      <Outlet/>
+      <Outlet />
     </div>
   )
 }
