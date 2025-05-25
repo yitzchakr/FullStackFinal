@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, {  useState, useEffect,createContext } from 'react';
 import axios from '../api/axios';
 
-const AuthContext = createContext(null);
-export const useAuth = () => useContext(AuthContext);
 
+export const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -11,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initializeUser = async () => {
       try {
-        const res = await axios.get('/dashboard'); // protected route
+        const res = await axios.get('/auth/user'); // protected route
         setCurrentUser(res.data.user);
       } catch {
         // user not logged in
