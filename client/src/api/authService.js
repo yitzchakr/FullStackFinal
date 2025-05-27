@@ -1,6 +1,9 @@
-import axios from './axios';
-
+import axios from 'axios';
 export const refreshToken = async () => {
-  const res = await axios.post('/auth/refresh'); // assumes refresh token is in cookie
-  return res.data.accessToken;
-};
+    const response = await axios.get('/auth/refreshToken', { withCredentials: true });
+    const { accessToken } = response.data;
+  
+    localStorage.setItem('accessToken', accessToken);
+    return accessToken;
+  };
+  

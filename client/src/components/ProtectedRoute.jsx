@@ -1,20 +1,21 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
-export const ProtectedRoute = ({ children }) => {
+export const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) return <div>Checking authentication...</div>;
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace  />;
   }
 
-  return children;
+  return <Outlet/>;
 };
 export const RoleBasedRoute = ({ allowedRoles }) => {
     const { currentUser, loading } = useAuth();
+    console.log(currentUser);
     
     if (loading) {
       return <div>Checking permissions...</div>;

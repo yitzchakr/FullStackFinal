@@ -3,8 +3,14 @@ import { refreshToken } from './authService';
 
 const api = axios.create({
   baseURL: 'http://localhost:3000',
-  withCredentials: true, // Needed if refresh token is in a cookie
+  withCredentials: true, // Include cookies for refresh token
 });
+
+// Load token from localStorage on app start
+const savedToken = localStorage.getItem('accessToken');
+if (savedToken) {
+  api.defaults.headers.common['Authorization'] = `Bearer ${savedToken}`;
+}
 
 let isRefreshing = false;
 let failedQueue = [];
@@ -20,28 +26,31 @@ const processQueue = (error, token = null) => {
   failedQueue = [];
 };
 
+// Add response interceptor
 api.interceptors.response.use(
-  res => res,
-  async (err) => {
-    const originalRequest = err.config;
+  response => response,
+  async error => {
+    const originalRequest = error.config;
 
-    if (err.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         }).then(token => {
-          originalRequest.headers['Authorization'] = 'Bearer ' + token;
+          originalRequest.headers['Authorization'] = `Bearer ${token}`;
           return api(originalRequest);
-        });
+        }).catch(err => Promise.reject(err));
       }
 
-      originalRequest._retry = true;
       isRefreshing = true;
 
       try {
         const newToken = await refreshToken();
-        api.defaults.headers['Authorization'] = 'Bearer ' + newToken;
-        originalRequest.headers['Authorization'] = 'Bearer ' + newToken;
+        localStorage.setItem('accessToken', newToken);
+        api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
         processQueue(null, newToken);
         return api(originalRequest);
       } catch (refreshError) {
@@ -52,7 +61,7 @@ api.interceptors.response.use(
       }
     }
 
-    return Promise.reject(err);
+    return Promise.reject(error);
   }
 );
 

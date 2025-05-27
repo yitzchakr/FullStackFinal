@@ -12,17 +12,17 @@ const Dashboard = () => {
     if (currentUser) {
       switch (currentUser.role) {
         case 'admin':
-          navigate('/admin/dashboard');
+          navigate('/admin/dashboard',{replace:true});
           break;
         case 'manager':
-          navigate('/manager/dashboard');
+          navigate('/manager/dashboard',{replace:true});
           break;
         case 'caseworker':
-          navigate('/caseworker/dashboard');
+          navigate('/caseworker/dashboard',{replace:true});
           break;
         default:
           // Fallback
-          navigate('/unauthorized');
+          navigate('/unauthorized',{replace:true});
       }
     }
   }, [currentUser, navigate]);

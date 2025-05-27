@@ -8,6 +8,7 @@ const Login = () => {
   const [error, setError] = useState('')
   const{  login ,loading}= useAuth();
   const navigate = useNavigate();
+  
 
   const  handleSubmit = async(e) => {
     e.preventDefault()
@@ -25,7 +26,8 @@ const Login = () => {
 
     // Submit logic here
     try{await login({ email, password })
-      navigate('/dashboard')
+    console.log('Login successful, navigating to dashboard...')
+     navigate('/dashboard')
     }
     catch  {
       setError('Invalid email or password')

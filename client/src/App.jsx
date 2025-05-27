@@ -22,7 +22,7 @@ function App() {
         
         {/* Protected Routes */}
         <Route  element={<ProtectedRoute />}>
-          <Route path="dashboard" element={<DashBoard />} />
+          <Route path="/dashboard" element={<DashBoard />} />
             <Route element= {<RoleBasedRoute allowedRoles={['admin']} />}>
               <Route path = "/admin/*" element={<Admin/>}/>
             <Route/>
@@ -31,7 +31,8 @@ function App() {
             </Route>
             <Route element= {<RoleBasedRoute allowedRoles={['caseworker']} />}>
               <Route path = "/caseworker/*" element={<CaseWorker/>}/> 
-            </Route>  
+            </Route>
+            <Route path="/unauthorized" element={<h1>Unauthorized Access</h1>} />  
           </Route>
         </Route>
         <Route path="*" element={<h1>404 Not Found</h1>} />
