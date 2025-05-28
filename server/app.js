@@ -6,7 +6,10 @@ const PORT = 3000;
 const requestRouter = require('./routes/requests');
 const cors = require('cors');
 const authRouter = require('./routes/auth');
+const adminRouter = require('./routes/admin');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -16,6 +19,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use("/auth",authRouter);
 app.use("/requests",requestRouter);
+app.use('/admin', adminRouter);
 
 
 

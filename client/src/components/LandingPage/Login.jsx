@@ -29,7 +29,11 @@ const Login = () => {
     console.log('Login successful, navigating to dashboard...')
      navigate('/dashboard')
     }
-    catch  {
+    catch (err) {
+      console.log(err);
+      
+      err.status!==401?
+      setError('Network error,not able to load'):
       setError('Invalid email or password')
       return
     }

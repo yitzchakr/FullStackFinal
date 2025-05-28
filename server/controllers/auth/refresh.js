@@ -1,6 +1,6 @@
 const jwt= require("jsonwebtoken");
 const { generateAccessToken } = require("../../utils/token");
-const rerfresh =(req, res) => {
+const refresh =(req, res) => {
 
     const refreshToken = req?.cookies?.refreshToken;
     if (!refreshToken){
@@ -15,4 +15,4 @@ const rerfresh =(req, res) => {
       res.json({ accessToken });
     });
   };
-module.exports = rerfresh;
+module.exports = refresh;

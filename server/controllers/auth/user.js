@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { generateAccessToken } = require('../../utils/token');
 
 const initUser = (req, res) => {
     const authHeader = req.headers['authorization'];
@@ -19,12 +20,8 @@ const initUser = (req, res) => {
             }
 
             // Generate a new access token
-            const newAccessToken = jwt.sign(
-                { id: user.id, role: user.role }, // Include necessary user data
-                process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '15m' } // Short-lived access token
-            );
-
+            console.log(user);
+            const newAccessToken = generateAccessToken(user);
             res.json({ user, accessToken: newAccessToken });
         });
     } else {

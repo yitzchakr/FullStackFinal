@@ -8,9 +8,12 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
+            
             "program": "${workspaceFolder}/server/app.js", // Update this to your entry file
             "restart": true,
-            "console": "integratedTerminal"
-        }
+            "console": "integratedTerminal",
+            "runtimeArgs": ["--inspect"]
+        },
+        
     ]
   }
