@@ -16,14 +16,15 @@
     color: #173656;
 }
 
-label {
+.label {
     display: block;
     font-weight: bold;
     margin-bottom: 0.5rem;
     color: #333;
 }
 
-input, select {
+.input,
+.select {
     width: 50%; /* Smaller width for inputs and dropdowns */
     padding: 0.5rem; /* Adjust padding for smaller size */
     margin-bottom: 1rem;
@@ -34,7 +35,7 @@ input, select {
     text-align: left; /* Justify text to the left */
 }
 
-textarea {
+.textarea {
     width: 100%; /* Full width for the description field */
     padding: 0.8rem;
     margin-bottom: 1rem;
@@ -46,13 +47,15 @@ textarea {
     min-height: 100px;
 }
 
-input:focus, textarea:focus, select:focus {
+.inputFocus,
+.textareaFocus,
+.selectFocus {
     outline: none;
     border-color: #1abc9c;
     box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
 }
 
-button {
+.button {
     width: 100%;
     padding: 0.8rem;
     background-color: #173656;
@@ -65,7 +68,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.buttonHover {
     background-color: #1abc9c;
 }
 

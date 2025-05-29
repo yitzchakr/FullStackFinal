@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from '../../styles/login.module.css'
+import styles from '../../styles/Login.module.css'
 import { useAuth } from '../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 const Login = () => {

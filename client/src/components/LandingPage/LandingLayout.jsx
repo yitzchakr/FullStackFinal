@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import styles from '../../styles/landing.module.css'
+import styles from '../../styles/LandingLayout.module.css'
 
 const LandingLayout = () => {
   return (

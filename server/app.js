@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use("/auth",authRouter);
 app.use("/requests",requestRouter);
-app.use('/admin', adminRouter);
+app.use('/users', adminRouter);
 
 
 

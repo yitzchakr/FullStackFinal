@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from '../../styles/intakePopup.module.css'
+import styles from '../../styles/Popup.module.css'
 
 const Popup = ({ submitState, setSubmitState, errorMessage }) => {
   const navigate = useNavigate()

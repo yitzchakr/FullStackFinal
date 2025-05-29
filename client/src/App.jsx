@@ -8,7 +8,9 @@ import DashBoard from "./components/Dashboards/DashBoard";
 import { ProtectedRoute, RoleBasedRoute } from "./components/ProtectedRoute";
 import CaseWorker from "./components/Dashboards/CaseWorker";
 import Manager from "./components/Dashboards/Manager";
-import { Admin } from "./components/Dashboards/Admin";
+import  AdminPanel  from "./components/Dashboards/administrator/Admin";
+
+
 
 function App() {
   return (
@@ -24,7 +26,7 @@ function App() {
         <Route  element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashBoard />} />
             <Route element= {<RoleBasedRoute allowedRoles={['admin']} />}>
-              <Route path = "/admin/*" element={<Admin/>}/>
+              <Route path = "/admin/*" element={<AdminPanel/>}/>
             <Route/>
             <Route element= {<RoleBasedRoute allowedRoles={['manager']} />}>
               <Route path = "/manager/*" element={<Manager/>}/> 
