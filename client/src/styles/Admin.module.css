@@ -39,6 +39,13 @@
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+  .addUserContainer{
+    border: solid 2px #173656;
+    padding: 2rem;
+    border-radius: 3px;
+     ;
+
+  }
   
   .input {
     padding: 0.8rem;

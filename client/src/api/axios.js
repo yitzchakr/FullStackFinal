@@ -1,12 +1,11 @@
 import axios from 'axios';
-import  refreshToken  from './authService';
+import refreshToken from './authService';
 
 const api = axios.create({
   baseURL: 'http://localhost:3000',
-  withCredentials: true, // Include cookies for refresh token
+  withCredentials: true,
 });
 
-// Load token from localStorage on app start
 const savedToken = localStorage.getItem('accessToken');
 if (savedToken) {
   api.defaults.headers.common['Authorization'] = `Bearer ${savedToken}`;
@@ -26,7 +25,6 @@ const processQueue = (error, token = null) => {
   failedQueue = [];
 };
 
-// Add response interceptor
 api.interceptors.response.use(
   response => response,
   async error => {
@@ -38,16 +36,22 @@ api.interceptors.response.use(
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
-        }).then(token => {
+        })
+        .then(token => {
           originalRequest.headers['Authorization'] = `Bearer ${token}`;
           return api(originalRequest);
-        }).catch(err => Promise.reject(err));
+        })
+        .catch(err => Promise.reject(err));
       }
 
       isRefreshing = true;
 
       try {
-        const newToken = await refreshToken();
+        const newToken = await refreshToken(); // Only try ONCE here
+        if (!newToken) {
+          throw new Error('Failed to refresh token');
+        }
+
         localStorage.setItem('accessToken', newToken);
         api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
         originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
@@ -55,7 +59,8 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
-        return Promise.reject(refreshError);
+        localStorage.removeItem('accessToken');
+        return Promise.reject(refreshError); // Do not redirect here
       } finally {
         isRefreshing = false;
       }

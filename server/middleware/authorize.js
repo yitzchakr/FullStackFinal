@@ -9,7 +9,7 @@ const authorize = (allowedRoles = []) => {
     try {
       req.user = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
     } catch (err) {
-      return res.status(403).json({ message: "Invalid access token" });
+      return res.status(401).json({ message: "Invalid access token" });
     }
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });

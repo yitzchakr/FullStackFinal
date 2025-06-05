@@ -12,9 +12,9 @@ export const AuthContext = createContext(null);
     const initUser = async () => {
       const token = localStorage.getItem('accessToken');
 
-      if (token) {
-        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      }
+      
+
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       try {
         const res = await api.get('/auth/user');
@@ -22,7 +22,15 @@ export const AuthContext = createContext(null);
       } catch (err) {
         console.error('User init failed:', err.response?.data?.message || err.message);
         setCurrentUser(null);
-        localStorage.removeItem('accessToken'); // clean up if invalid
+        localStorage.removeItem('accessToken');
+        setLoading(false);
+        setTimeout(() => {
+          if ([401, 403].includes(err?.response?.status)) {
+            window.location.href = '/login';
+          }
+        }, 0);
+  
+         // Clean up if invalid
       } finally {
         setLoading(false);
       }

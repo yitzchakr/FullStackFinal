@@ -17,15 +17,31 @@ const adminModel = {
                 throw error;
             }
         },
+        getUser:async (email) => {
+            try { 
+                const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+                if (rows.length === 0) {
+                    return null; // No user found with the given email
+                }
+                const user = rows[0];
+                // Filter out sensitive information like password hashes
+                const { password_hash, ...userWithoutPassword } = user;
+                return userWithoutPassword;
+            } catch (error) {
+                console.error("Error fetching user:", error);
+                throw error;
+            }
+        },
         addUser: async (userData) => {
             try {
-                const { first_name, last_name, email, role,defaultPassword} = userData;
+                const { first_name, last_name, email, role,specialties,region,defaultPassword} = userData;
                 const hashed_password = await bcrypt.hash(defaultPassword, 10);
+                const jsonspecialties = JSON.stringify(specialties);
                 const [result] = await db.query(
-                    "INSERT INTO users (first_name, last_name, email, role,password_hash) VALUES (?, ?, ?, ?,?)",
-                    [first_name, last_name, email, role, hashed_password]
+                    "INSERT INTO users (first_name, last_name, email, role,specialties,region,password_hash) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    [first_name, last_name, email, role,jsonspecialties,region, hashed_password]
                 );
-                return { id: result.insertId, first_name, last_name, email, role };
+                return { id: result.insertId, first_name, last_name, email, role,specialties,region };
             } catch (error) {
                 console.error("Error adding user:", error);
                 throw error;
@@ -33,12 +49,13 @@ const adminModel = {
         },
         updateUser: async (userId, userData) => {
             try {
-                const { first_name, last_name, email, role } = userData;
+                const { first_name, last_name, email, role,specialties,region } = userData;
+                const jsonspecialties = JSON.stringify(specialties);
                 await db.query(
-                    "UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ? WHERE id = ?",
-                    [first_name, last_name, email, role, userId]
+                    "UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ?,specialties= ?, region = ?  WHERE id = ?",
+                    [first_name, last_name, email, role,jsonspecialties,region, userId]
                 );
-                return { id: userId, first_name, last_name, email, role };
+                return { id: userId, first_name, last_name, email, role,specialties,region };
             } catch (error) {
                 console.error("Error updating user:", error);
                 throw error;

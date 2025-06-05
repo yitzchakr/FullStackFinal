@@ -16,7 +16,7 @@ const initUser = (req, res) => {
         // Verify the refresh token
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
             if (err) {
-                return res.status(403).json({ message: 'Invalid refresh token' });
+                return res.status(401).json({ message: 'Invalid refresh token' });
             }
 
             // Generate a new access token
@@ -30,7 +30,7 @@ const initUser = (req, res) => {
             if (err) {
                 console.log(err.stack);
                 
-                return res.status(403).json({ message: 'Invalid access token' });
+                return res.status(401).json({ message: 'Invalid access token' });
             }
             console.log(user);
             

@@ -7,6 +7,8 @@ const EditUserForm = ({ user, onSave, onCancel, loading }) => {
     last_name: user.last_name,
     email: user.email,
     role: user.role,
+    specialties: user.specialties || "",
+    region: user.region || ""
   });
 
   const handleSubmit = (e) => {
@@ -48,6 +50,24 @@ const EditUserForm = ({ user, onSave, onCancel, loading }) => {
       >
         <option value="manager">Manager</option>
         <option value="caseworker">Case Worker</option>
+      </select>
+        <input
+            type="text"
+            value={formData.specialties || ""}
+            onChange={(e) => setFormData({ ...formData, specialties: e.target.value })}
+            placeholder="Specialties"
+            className={styles.input}
+        />
+      <select
+        value={formData.region || ""}
+        onChange={(e) => setFormData({ ...formData, region: e.target.value })}
+        className={styles.select}
+        >
+        <option value="">Select Region</option>
+        <option value="North">North</option>
+        <option value="South">South</option>
+        <option value="Center">Center</option>
+        <option value="Jerusalem">Jerusalem</option>
       </select>
       <button type="submit" disabled={loading} className={styles.button}>
         {loading ? 'Saving...' : 'Save'}

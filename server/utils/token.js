@@ -10,7 +10,7 @@ const generateAccessToken = (user) => {
         last_name: user.last_name
     };
     
-    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2m' });
 }
 const generateRefreshToken = (user) => {
     const payload = {

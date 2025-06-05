@@ -10,7 +10,7 @@ const refresh =(req, res) => {
     }
   
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-      if (err) return res.sendStatus(403);
+      if (err) return res.sendStatus(40);
       const accessToken = generateAccessToken(user);
       res.json({ accessToken });
     });
