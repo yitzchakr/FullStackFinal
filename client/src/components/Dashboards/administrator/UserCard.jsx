@@ -6,8 +6,13 @@ const UserCard = ({ user, onUpdateUser, onDeleteUser, operationLoading }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSave = async (updatedUser) => {
+    const completeUser = {
+      is_active: user.is_active,
+      ...updatedUser,
+    };
     try {
-      await onUpdateUser(user.id, updatedUser);
+        
+      await onUpdateUser(user.id, completeUser);
       setIsEditing(false);
     } catch (error) {
       console.error('Update failed:', error.message);
