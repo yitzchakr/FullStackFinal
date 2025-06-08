@@ -20,7 +20,7 @@ const adminController = {
   }),
   updateUser: routeHandler(async (req, res) => {
     const userId = req.params.id;
-    const { first_name, last_name, email, role ,specialties,region } = req.body;
+    const { first_name, last_name, email, role ,specialties,region,is_active } = req.body;
     if (!first_name || !last_name || !email || !role) {
       return res.status(400).json({ message: "Missing required fields" });
     }
@@ -34,7 +34,7 @@ const adminController = {
       email,
       role,
       specialties,
-      region
+      region,is_active
     });
     res.status(200).json(updatedUser);
   }),

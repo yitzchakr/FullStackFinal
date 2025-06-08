@@ -4,6 +4,7 @@ import styles from '../../../styles/UserCard.module.css';
 
 const UserCard = ({ user, onUpdateUser, onDeleteUser, operationLoading }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isActive, setIsActive] = useState(user.is_active); // Local state for isActive
 
   const handleSave = async (updatedUser) => {
     try {
@@ -14,8 +15,22 @@ const UserCard = ({ user, onUpdateUser, onDeleteUser, operationLoading }) => {
     }
   };
 
+  const toggleActiveStatus = async () => {
+    try {
+      const updatedUser = { ...user, is_active: !isActive };
+      await onUpdateUser(user.id, updatedUser);
+      setIsActive(!isActive); // Update local state
+    } catch (error) {
+      console.error('Failed to toggle active status:', error.message);
+    }
+  };
+
   return (
-    <div className={styles.userCard}>
+    <div
+       className={`${styles.userCard} ${
+         isActive ? styles.activeCard : styles.inactiveCard
+       }`}
+    >
       {isEditing ? (
         <EditUserForm
           user={user}
@@ -25,8 +40,12 @@ const UserCard = ({ user, onUpdateUser, onDeleteUser, operationLoading }) => {
         />
       ) : (
         <>
-          <h3>{user.first_name} {user.last_name}</h3>
-          <p>{user.email} - {user.role}</p>
+          <h3>
+            {user.first_name} {user.last_name}
+          </h3>
+          <p>
+            {user.email} - {user.role}
+          </p>
           <button onClick={() => setIsEditing(true)} className={styles.editButton}>
             Edit
           </button>
@@ -36,6 +55,13 @@ const UserCard = ({ user, onUpdateUser, onDeleteUser, operationLoading }) => {
             className={styles.deleteButton}
           >
             Delete
+          </button>
+          <button
+            onClick={toggleActiveStatus}
+            disabled={operationLoading}
+            className={styles.toggleActiveButton}
+          >
+            {isActive ? 'Deactivate' : 'Activate'}
           </button>
         </>
       )}

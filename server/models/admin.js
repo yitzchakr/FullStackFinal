@@ -49,13 +49,13 @@ const adminModel = {
         },
         updateUser: async (userId, userData) => {
             try {
-                const { first_name, last_name, email, role,specialties,region } = userData;
+                const { first_name, last_name, email, role,specialties,region,is_active } = userData;
                 const jsonspecialties = JSON.stringify(specialties);
                 await db.query(
-                    "UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ?,specialties= ?, region = ?  WHERE id = ?",
-                    [first_name, last_name, email, role,jsonspecialties,region, userId]
+                    "UPDATE users SET first_name = ?, last_name = ?, email = ?, role = ?,specialties= ?, region = ?, is_active = ? WHERE id = ?",
+                    [first_name, last_name, email, role,jsonspecialties,region,is_active, userId]
                 );
-                return { id: userId, first_name, last_name, email, role,specialties,region };
+                return { id: userId, first_name, last_name, email, role,specialties,region,is_active };
             } catch (error) {
                 console.error("Error updating user:", error);
                 throw error;
