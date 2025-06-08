@@ -4,7 +4,6 @@ import styles from '../../../styles/UserCard.module.css';
 
 const UserCard = ({ user, onUpdateUser, onDeleteUser, operationLoading }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [isActive, setIsActive] = useState(user.is_active); // Local state for isActive
 
   const handleSave = async (updatedUser) => {
     try {
@@ -17,9 +16,9 @@ const UserCard = ({ user, onUpdateUser, onDeleteUser, operationLoading }) => {
 
   const toggleActiveStatus = async () => {
     try {
-      const updatedUser = { ...user, is_active: !isActive };
+      const updatedUser = { ...user, is_active: !user.is_active };
       await onUpdateUser(user.id, updatedUser);
-      setIsActive(!isActive); // Update local state
+      
     } catch (error) {
       console.error('Failed to toggle active status:', error.message);
     }
@@ -28,7 +27,7 @@ const UserCard = ({ user, onUpdateUser, onDeleteUser, operationLoading }) => {
   return (
     <div
        className={`${styles.userCard} ${
-         isActive ? styles.activeCard : styles.inactiveCard
+         user.is_active ? styles.activeCard : styles.inactiveCard
        }`}
     >
       {isEditing ? (
@@ -61,7 +60,7 @@ const UserCard = ({ user, onUpdateUser, onDeleteUser, operationLoading }) => {
             disabled={operationLoading}
             className={styles.toggleActiveButton}
           >
-            {isActive ? 'Deactivate' : 'Activate'}
+            {user.is_active ? 'Deactivate' : 'Activate'}
           </button>
         </>
       )}
