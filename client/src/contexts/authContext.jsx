@@ -39,16 +39,7 @@ export const AuthContext = createContext(null);
     initUser();
   }, []);
 
-  // Login function
-  const login = async ({ email, password }) => {
-    const res = await api.post('/auth/login', { email, password });
-    console.log('Login response:', res.data);
-    const token = res.data.accessToken;
-    localStorage.setItem('accessToken', token);
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-    setCurrentUser(res.data.user);
-  };
+ 
 
   // Logout function
   const logout = async () => {
@@ -60,8 +51,8 @@ export const AuthContext = createContext(null);
 
   const value = {
     currentUser,
+    setCurrentUser,
     isAuthenticated: !!currentUser,
-    login,
     logout,
     loading,
   };

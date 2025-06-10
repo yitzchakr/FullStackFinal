@@ -5,6 +5,16 @@ const rawAxios = axios.create({
   baseURL: 'http://localhost:3000',
   withCredentials: true,
 });
+export const login = async (email, password) => {
+    try {
+      const response = await rawAxios.post('/auth/login', { email, password });
+      const { accessToken } = response.data;
+      return accessToken;
+    } catch (err) {
+      console.error('Login request failed:', err.response?.data || err.message);
+      throw err; // Pass the error back to the calling function
+    }
+  };
 
 const refreshToken = async () => {
   try {
