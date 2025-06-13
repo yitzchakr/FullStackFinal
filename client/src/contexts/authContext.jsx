@@ -11,9 +11,6 @@ export const AuthContext = createContext(null);
   useEffect(() => {
     const initUser = async () => {
       const token = localStorage.getItem('accessToken');
-
-      
-
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       try {

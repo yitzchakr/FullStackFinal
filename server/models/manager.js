@@ -15,9 +15,10 @@ const caseworkerSql = `SELECT
         c.status as case_status,
         c.priority_level
      FROM users u 
-     LEFT JOIN cases c ON u.id = c.caseworker_id
+     LEFT JOIN cases c 
+     ON u.id = c.caseworker_id
+     AND c.status IN ('assigned', 'active', 'on_hold')
      WHERE u.role = 'caseworker' 
-     AND c.status IN ('assigned', 'active, on_hold')
      AND u.is_active = 1 
      ORDER BY u.id;`;
 const unassignedCasesSql = `SELECT r.*
@@ -40,7 +41,7 @@ const getManagerOverview = async () => {
           firstName: r.first_name,
           lastName: r.last_name,
           region: r.region,
-          specialties: JSON.parse(r.specialties || "[]"),
+          specialties: (r.specialties || "[]"),
           cases: [],
         });
       }
@@ -63,6 +64,48 @@ const getManagerOverview = async () => {
     throw new ApiError(500,'[failed to fetch');
   }
 };
+const assignCaseworker = async (requestId, caseworkerId,assignedBy,priorityLevel) => {
+  try {
+    const [result] = await pool.query(
+      `INSERT INTO cases (request_id, caseworker_id, assigned_by, priority_level, status) 
+       VALUES (?, ?, ?, ?, 'assigned')`,
+      [requestId, caseworkerId, assignedBy, priorityLevel]
+    );
+    return result.insertId;
+  } catch (error) {
+    console.error("Error assigning caseworker:", error);
+    throw new ApiError(500,'[failed to assign caseworker');
+  }
+}
+const  reassignCaseworker = async (caseId, caseworkerId) => {
+  try {
+    await pool.query(
+      `UPDATE cases 
+       SET caseworker_id = ?
+       WHERE id = ?`,
+      [caseworkerId, caseId]
+    );
+  }
+  catch (error) {
+    console.error("Error reassigning caseworker:", error);
+    throw new ApiError(500,'[failed to reassign caseworker');
+  }
+}
+const markRequestAssigned = async (requestId) => {
+  try {
+    await pool.query(
+      `UPDATE requests 
+       SET status = 'assigned' 
+       WHERE id = ?`,
+      [requestId]
+    );
+  }
+  catch (error) {
+    console.error("Error marking request as assigned:", error);
+    throw new ApiError(500,'[failed to mark request as assigned');
+  }
+}
+
 module.exports = 
-  getManagerOverview
+  {getManagerOverview,assignCaseworker,markRequestAssigned,reassignCaseworker}
 ;

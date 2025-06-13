@@ -9,8 +9,8 @@ import { ProtectedRoute, RoleBasedRoute } from "./components/ProtectedRoute";
 import CaseWorker from "./components/Dashboards/CaseWorker";
 import Manager from "./components/Dashboards/manag/Manager";
 import  AdminPanel  from "./components/Dashboards/administrator/Admin";
-
-
+import { ManagerProvider } from "./contexts/managerContext";
+import { AdminProvider } from "./contexts/adminContext";
 
 function App() {
   return (
@@ -26,10 +26,11 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<DashBoard />} />
           <Route element={<RoleBasedRoute allowedRoles={['admin']} />}>
-            <Route path="/admin/*" element={<AdminPanel />} />
+            <Route path="/admin/*" element={<AdminProvider><AdminPanel /></AdminProvider>} />
           </Route>
           <Route element={<RoleBasedRoute allowedRoles={['manager']} />}>
-            <Route path="/manager/*" element={<Manager />} />
+
+            <Route path="/manager/*" element={<ManagerProvider><Manager /></ManagerProvider>} />
           </Route>
           <Route element={<RoleBasedRoute allowedRoles={['caseworker']} />}>
             <Route path="/caseworker/*" element={<CaseWorker />} />

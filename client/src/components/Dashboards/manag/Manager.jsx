@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect} from 'react';
+import styles from '../../../styles/ManagerLayout.module.css';
 import Header from '../Header';
-import api from '../../../api/axios';
-import Requests from './Requests';
+import RequestsList from './RequestsList';
+import { useManagerContext } from '../../../hooks/useManagerCon';
+import CaseWorkerList from './CaseWorkerList';
 
 const Manager = () => {
-  const [managerData, setManagerData] = useState({});
-
+  const {fetchManagerData} = useManagerContext();
   useEffect(() => {
-    const fetchManagerData = async () => {
-      try {
-        const response = await api.get('/manager/');
-        setManagerData(response.data);
-      } catch (error) {
-        console.error('Error fetching manager data:', error);
-      }
-    };
-
-    fetchManagerData();
   
-  }, []);
+    fetchManagerData();
+  }, [fetchManagerData]);
 
   return (
     <div>
       <Header />
-      <Requests requests={managerData.data.unassignedRequests || []} />
+      <div className={styles.managerContainer}>
+        <div className={styles.leftPanel}>
+          <RequestsList />
+        </div>
+        <div className={styles.rightPanel}>
+          <CaseWorkerList />
+        </div>
+      </div>
     </div>
   );
 };
