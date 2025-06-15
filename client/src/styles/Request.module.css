@@ -1,17 +1,21 @@
-.requestSectionContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  
-}
-
-.requestSection {
-  width: 100%;
-  max-width: 600px;
+.sectionContainer {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(23,54,86,0.10), 0 1.5px 6px rgba(23,54,86,0.06);
+  padding: 2rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
+/* Shared heading style */
+.sectionHeading {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #173656;
+  letter-spacing: 0.01em;
 }
 
 .requestSummary {
