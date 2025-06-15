@@ -25,24 +25,8 @@
   flex-direction: column;
 }
 
-/* .requestSectionContainer {
-/* .requestSectionContainer {
-  width: 100%;
-} */
 
-/* .caseWorkerGrid {
- display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 1rem;
-} */
 
-/* .caseWorkerGrid {
- display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 1rem;
-} */
 .caseWorkerGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -53,7 +37,6 @@
 .caseWorkerCard {
   background: #f4f8fb;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(23, 54, 86, 0.07);
   box-shadow: 0 2px 8px rgba(23, 54, 86, 0.07);
   padding: 1.2rem 1rem;
   border: 1.5px solid #1abc9c;
@@ -68,10 +51,7 @@
     0 1.5px 6px rgba(23, 54, 86, 0.06);
   padding: 2rem 1.5rem;
   margin-bottom: 2rem;
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  */
+
 } 
 
 /* Shared heading style */
@@ -102,10 +82,7 @@
     0 1.5px 6px rgba(23, 54, 86, 0.06);
   padding: 2rem 1.5rem;
   margin-bottom: 2rem;
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  */
+
 } 
 
 /* Shared heading style */
