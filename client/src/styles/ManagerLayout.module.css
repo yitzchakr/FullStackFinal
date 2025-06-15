@@ -13,6 +13,8 @@
 .leftPanel {
   flex: 1 1 40%;
   max-width: 40%;
+  flex: 1 1 40%;
+  max-width: 40%;
   display: flex;
   flex-direction: column;
 }
@@ -24,7 +26,16 @@
 }
 
 /* .requestSectionContainer {
+/* .requestSectionContainer {
   width: 100%;
+} */
+
+/* .caseWorkerGrid {
+ display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+} */
 } */
 
 /* .caseWorkerGrid {
@@ -44,8 +55,46 @@
   background: #f4f8fb;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(23, 54, 86, 0.07);
+  box-shadow: 0 2px 8px rgba(23, 54, 86, 0.07);
   padding: 1.2rem 1rem;
   border: 1.5px solid #1abc9c;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionContainer {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(23, 54, 86, 0.1),
+    0 1.5px 6px rgba(23, 54, 86, 0.06);
+  padding: 2rem 1.5rem;
+  margin-bottom: 2rem;
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  */
+} 
+
+/* Shared heading style */
+.sectionHeading {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #173656;
+  letter-spacing: 0.01em;
+}
+.viewCasesButton {
+  padding: 0.4rem 1rem;
+  background: #1abc9c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: auto;
+}
+
   display: flex;
   flex-direction: column;
 }
