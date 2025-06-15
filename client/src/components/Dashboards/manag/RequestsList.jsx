@@ -5,9 +5,9 @@ import { useManagerContext } from '../../../hooks/useManagerCon'
 const RequestsList = () => {
   const { unassignedRequests, caseworkers} = useManagerContext()
   return (
-    <div className={styles.requestSectionContainer}>
+    <div className={styles.sectionContainer}>
+      <h2 className={styles.sectionHeading}>Unassigned Requests</h2>
       <div className={styles.requestSection}>
-        <h2>Unassigned Requests</h2>
         <p>Click on a request to view details and assign a caseworker.</p>
         {unassignedRequests.map(req => (
           <div key={req.id}>

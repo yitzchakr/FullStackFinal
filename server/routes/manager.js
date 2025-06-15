@@ -8,4 +8,3 @@ managerRouter.post('/assign', auth, authorize('manager'), managerController.assi
 managerRouter.put('/reassign', auth, authorize('manager'), managerController.reassignCaseWorker);
 
 module.exports = managerRouter;
-// This code defines a router for manager-related routes in an Express application.

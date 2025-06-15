@@ -6,8 +6,8 @@ import styles from '../../../styles/ManagerLayout.module.css';
 export default function CaseWorkerList() {
   const caseworkers = useManagerContext().caseworkers;
   return (
-    <div>
-      <h2>Case Workers</h2>
+    <div className={styles.sectionContainer}>
+      <h2 className={styles.sectionHeading}>Case Workers</h2>
       <p>List of case workers assigned to requests.</p>
       <div className={styles.caseWorkerGrid}>
         {caseworkers.map((worker) => (
