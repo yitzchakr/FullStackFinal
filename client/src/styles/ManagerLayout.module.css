@@ -26,24 +26,7 @@
 }
 
 
-/* .requestSectionContainer {
-/* .requestSectionContainer {
-  width: 100%;
-} */
 
-/* .caseWorkerGrid {
- display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 1rem;
-} */
-
-/* .caseWorkerGrid {
- display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 1rem;
-} */
 .caseWorkerGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -68,10 +51,7 @@
     0 1.5px 6px rgba(23, 54, 86, 0.06);
   padding: 2rem 1.5rem;
   margin-bottom: 2rem;
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  */
+
 } 
 
 /* Shared heading style */
@@ -102,10 +82,7 @@
     0 1.5px 6px rgba(23, 54, 86, 0.06);
   padding: 2rem 1.5rem;
   margin-bottom: 2rem;
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  */
+
 } 
 
 /* Shared heading style */
