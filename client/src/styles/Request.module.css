@@ -1,0 +1,110 @@
+.sectionContainer {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(23,54,86,0.10), 0 1.5px 6px rgba(23,54,86,0.06);
+  padding: 2rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Shared heading style */
+.sectionHeading {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #173656;
+  letter-spacing: 0.01em;
+}
+
+.requestSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.2rem 1rem;
+  border: 1.5px solid #1abc9c;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #e8f6f3 0%, #f4f8fb 100%);
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
+  box-shadow: 0 2px 8px rgba(23,54,86,0.07);
+  position: relative;
+}
+
+.requestSummary:hover {
+  border-color: #159c85;
+  background: linear-gradient(90deg, #d1f2eb 0%, #eafaf1 100%);
+  box-shadow: 0 4px 16px rgba(23,54,86,0.13);
+}
+
+.requestSummary span {
+  font-size: 1.08rem;
+  color: #173656;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.requestSummary .urgency {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+.requestSummary .region {
+  color: #2980b9;
+  font-weight: 500;
+}
+
+.requestDetails {
+  padding: 1.2rem;
+  border: 2px solid #173656;
+  border-radius: 8px;
+  background: #f4f8fb;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.assignSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.select {
+  padding: 0.4rem 0.7rem;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  font-size: 1rem;
+}
+
+.assignButton {
+  padding: 0.4rem 1rem;
+  background: #1abc9c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.assignButton:disabled {
+  background: #b2dfdb;
+  cursor: not-allowed;
+}
+.assignButton:hover:not(:disabled) {
+  background: #159c85;
+}
+
+.error {
+  color: #e74c3c;
+  margin-left: 1rem;
+  font-size: 0.95rem;
+}
+.success {
+  color: #27ae60;
+  margin-left: 1rem;
+  font-size: 0.95rem;
+}

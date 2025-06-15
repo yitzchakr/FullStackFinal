@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import styles from '../../styles/Login.module.css'
 import { useAuth } from '../../hooks/useAuth'
+import api from '../../api/axios'
 import { useNavigate } from 'react-router-dom'
+import { login } from '../../api/authService' // Adjust the import path as necessary
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const{  login ,loading}= useAuth();
+  const{  loading,setCurrentUser}= useAuth();
   const navigate = useNavigate();
   
 
@@ -25,18 +27,17 @@ const Login = () => {
     }
 
     // Submit logic here
-    try{await login({ email, password })
-    console.log('Login successful, navigating to dashboard...')
-     navigate('/dashboard')
+    try {
+      const accessToken = await login(email, password);
+      localStorage.setItem('accessToken', accessToken);
+      api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      const res = await api.get('/auth/user');
+      setCurrentUser(res.data.user);
+      navigate('/dashboard'); // Redirect to dashboard after successful login
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed');
     }
-    catch (err) {
-      console.log(err);
-      
-      err.status!==401?
-      setError('Network error,not able to load'):
-      setError('Invalid email or password')
-      return
-    }
+
 
   }
 
