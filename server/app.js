@@ -8,6 +8,7 @@ const cors = require('cors');
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
 const managerRouter = require('./routes/manager');
+const caseworkerRouter = require('./routes/caseworker'); 
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -22,6 +23,7 @@ app.use("/auth",authRouter);
 app.use("/requests",requestRouter);
 app.use('/users', adminRouter);
 app.use('/manager', managerRouter);
+app.use('/caseworker', caseworkerRouter); 
 
 
 
