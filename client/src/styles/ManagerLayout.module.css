@@ -13,8 +13,6 @@
 .leftPanel {
   flex: 1 1 40%;
   max-width: 40%;
-  flex: 1 1 40%;
-  max-width: 40%;
   display: flex;
   flex-direction: column;
 }
@@ -102,5 +100,8 @@
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
+  margin-top: auto;
+}
+.caseload{
   margin-top: auto;
 }

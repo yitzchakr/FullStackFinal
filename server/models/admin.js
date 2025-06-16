@@ -41,7 +41,7 @@ const adminModel = {
                     "INSERT INTO users (first_name, last_name, email, role,specialties,region,password_hash) VALUES (?, ?, ?, ?, ?, ?, ?)",
                     [first_name, last_name, email, role,jsonspecialties,region, hashed_password]
                 );
-                return { id: result.insertId, first_name, last_name, email, role,specialties,region };
+                return { id: result.insertId, first_name, last_name, email, role,specialties,region,is_active:true };
             } catch (error) {
                 console.error("Error adding user:", error);
                 throw error;

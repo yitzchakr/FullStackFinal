@@ -15,7 +15,7 @@ export default function Worker({ worker }) {
       <p>
         Specialties: {Array.isArray(worker.specialties) ? worker.specialties.join(', ') : worker.specialties}
       </p>
-      <p><strong>Case Load: {worker?.cases?.length}</strong></p>
+      <p className={styles.caseload}><strong>Case Load: {worker?.cases?.length}</strong></p>
       <button onClick={handleViewCases}
       className={styles.viewCasesButton}
       >Assigned cases</button>

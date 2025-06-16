@@ -53,9 +53,9 @@ const EditUserForm = ({ user, onSave, onCancel, loading }) => {
       </select>
         <input
             type="text"
-            value={formData.specialties || ""}
-            onChange={(e) => setFormData({ ...formData, specialties: e.target.value })}
-            placeholder="Specialties"
+            value={formData.specialties || [""]}
+            onChange={(e) => setFormData({ ...formData, specialties: e.target.value.split(',').map(s => s.trim()) })}
+            placeholder="Specialties (separate by commas)"
             className={styles.input}
         />
       <select

@@ -8,7 +8,7 @@ const AddUserForm = ({operationLoading,setOperationLoading}) => {
         last_name: "",
         email: "",
         role: "",
-        specialties: "",
+        specialties: [""],
         region: ""
       });
       const {addUser} = useAdmin();
@@ -69,9 +69,9 @@ const AddUserForm = ({operationLoading,setOperationLoading}) => {
             <input
               type="text-area"
               value={newUser.specialties || ""}
-              placeholder="Specialties"
+              placeholder="Specialties (separate by commas)"
               onChange={(e) =>
-                setNewUser({ ...newUser, specialties: e.target.value })
+                setNewUser({ ...newUser, specialties: e.target.value.split(',').map(s => s.trim()) })
               }
               className={styles.input}
             />
