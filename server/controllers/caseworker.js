@@ -2,7 +2,7 @@ const {getAllCases} = require('../models/caseworker');
 const routeHandler = require('../utils/routeHandler');
 const caseworkerController = {
     init: routeHandler(async (req, res) => {
-        const caseworkerId = req.body.caseworkerId; // Assuming caseworkerId is set in the request object, e.g., from middleware
+        const caseworkerId = req.params.id; // 
         if (!caseworkerId) {
             return res.status(400).json({
                 message: 'Caseworker ID is required'

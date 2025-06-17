@@ -142,5 +142,138 @@ const getAllCases = async (caseworkerId) => {
     throw new ApiError(500, "Database query failed", error);
   }
 };
+const editCase = async (caseId, updates) => {
+  const { status, priority_level } = updates;
 
-module.exports = { getAllCases };
+  const query = `
+    UPDATE cases
+    SET status = ?, priority_level = ?
+    WHERE id = ?;
+  `;
+
+  try {
+    const [result] = await db.query(query, [status, priority_level, caseId]);
+    if (result.affectedRows === 0) {
+      throw new ApiError(404, "Case not found");
+    }
+    return { message: "Case updated successfully" };
+  } catch (error) {
+    console.log("Database update error:", error);
+    throw new ApiError(500, "Database update failed", error);
+  }
+};
+const addCaseNote = async (caseId, noteContent, noteType, createdBy) => {
+  const query = `
+    INSERT INTO case_notes (case_id, note_content, note_type, created_by)
+    VALUES (?, ?, ?, ?);
+  `;
+
+  try {
+    const [result] = await db.query(query, [
+      caseId,
+      noteContent,
+      noteType,
+      createdBy,
+    ]);
+    if (result.affectedRows === 0) {
+      throw new ApiError(404, "Case not found");
+    }
+    return { message: "Case note added successfully", noteId: result.insertId };
+  } catch (error) {
+    console.log("Database insert error:", error);
+    throw new ApiError(500, "Database insert failed", error);
+  }
+};
+const addCaseUpdate = async (caseId, updateType, description, createdBy) => {
+  const query = `
+    INSERT INTO case_updates (case_id, update_type, description, created_by)
+    VALUES (?, ?, ?, ?);
+  `;
+
+  try {
+    const [result] = await db.query(query, [
+      caseId,
+      updateType,
+      description,
+      createdBy,
+    ]);
+    if (result.affectedRows === 0) {
+      throw new ApiError(404, "Case not found");
+    }
+    return {
+      message: "Case update added successfully",
+      updateId: result.insertId,
+    };
+  } catch (error) {
+    console.log("Database insert error:", error);
+    throw new ApiError(500, "Database insert failed", error);
+  }
+};
+const addActionPlan = async (
+  caseId,
+  planDescription,
+  goals,
+  resourcesProvided,
+  milestones,
+  completionDateEstimate
+) => {
+  const query = `
+    INSERT INTO action_plans (case_id, plan_description, goals, resources_provided, milestones, completion_date_estimate)
+    VALUES (?, ?, ?, ?, ?, ?);
+  `;
+
+  try {
+    const [result] = await db.query(query, [
+      caseId,
+      planDescription,
+      goals,
+      resourcesProvided,
+      milestones,
+      completionDateEstimate,
+    ]);
+    if (result.affectedRows === 0) {
+      throw new ApiError(404, "Case not found");
+    }
+    return {
+      message: "Action plan added successfully",
+      actionPlanId: result.insertId,
+    };
+  } catch (error) {
+    console.log("Database insert error:", error);
+    throw new ApiError(500, "Database insert failed", error);
+  }
+};
+const deleteCaseAddendum = async (caseId, addendumId, addendumTable) => {
+  const query = `
+    DELETE FROM ${addendumTable}
+    WHERE id = ? AND case_id = ?;
+  `;
+  const allowedTables = ["case_notes", "case_updates", "action_plans"];
+  if (!allowedTables.includes(addendumTable)) {
+    throw new ApiError(400, "Invalid addendum table");
+  }
+
+  try {
+    const [result] = await db.query(query, [addendumId, caseId]);
+    if (result.affectedRows === 0) {
+      throw new ApiError(
+        404,
+        "Addendum not found or does not belong to this case"
+      );
+    }
+    return { message: `${addendumTable} deleted successfully` };
+  } catch (error) {
+    console.log("Database delete error:", error);
+    throw new ApiError(500, "Database delete failed", error);
+  }
+};
+
+module.exports = {
+  getAllCases,
+  editCase,
+  addCaseNote,
+  addCaseUpdate,
+  addActionPlan,
+  deleteCaseAddendum,
+};
+// This module handles caseworker-related database operations such as fetching cases, editing cases, and adding notes, updates, and action plans.
